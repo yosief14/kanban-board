@@ -1,3 +1,4 @@
+'use client'
 import NextLink from "next/link";
 import { Link } from "@nextui-org/link";
 import { Snippet } from "@nextui-org/snippet";
@@ -6,8 +7,18 @@ import { button as buttonStyles } from "@nextui-org/theme";
 import { siteConfig } from "@/config/site";
 import { title, subtitle } from "@/components/primitives";
 import { GithubIcon } from "@/components/icons";
+import { useState } from "react";
+import { Counter } from "@/components/counter";
+import { Button } from "@nextui-org/button";
+import {
+	Listbox,
+	ListboxSection,
+	ListboxItem
+} from "@nextui-org/react";
+import { motion, AnimatePresence } from "framer-motion"
 
 export default function Home() {
+	const [sideBarIsOpen, setSideBarIsOpen] = useState(true)
 	return (
 		<section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
 			<div className="inline-block max-w-lg text-center justify-center">
@@ -23,14 +34,25 @@ export default function Home() {
 			</div>
 
 			<div className="flex gap-3">
-				<Link
-					isExternal
-					as={NextLink}
-					href={siteConfig.links.docs}
-					className={buttonStyles({ color: "primary", radius: "full", variant: "shadow" })}
+
+				<AnimatePresence initial={false}>
+					{sideBarIsOpen && (
+						<motion.div
+							animate={{ scaleX: 1, opacity: 1 }}
+							exit={{ scaleX: 0, opacity: 0 }}
+							transition={{ duration: 0.5 }}
+						>
+							<Button radius="full" >
+								Count
+							</Button>
+						</motion.div>
+					)
+					}
+				</AnimatePresence>
+				<motion.div
+					animate={{x: sideBarIsOpen? 0: "-100%"}}
+					transition={{duration: 0.6}}
 				>
-					Documentation
-				</Link>
 				<Link
 					isExternal
 					as={NextLink}
@@ -40,7 +62,22 @@ export default function Home() {
 					<GithubIcon size={20} />
 					GitHub
 				</Link>
+				</motion.div>
 			</div>
+			<Listbox
+				aria-label="Actions"
+				onAction={(key) => {
+					setSideBarIsOpen(!sideBarIsOpen)
+					console.log(sideBarIsOpen)
+				}}
+			>
+				<ListboxItem key="new">New file</ListboxItem>
+				<ListboxItem key="copy">Copy link</ListboxItem>
+				<ListboxItem key="edit">Edit file</ListboxItem>
+				<ListboxItem key="delete" className="text-danger" color="danger">
+					Delete file
+				</ListboxItem>
+			</Listbox>
 
 			<div className="mt-8">
 				<Snippet hideSymbol hideCopyButton variant="flat">
