@@ -2,6 +2,7 @@
 I’m prone to hyperfocus when I work which I love but I need to supplement it with an organized framework in order to maximize the benefits and minimize the cons(rabbit holing, and task estimation)
 
 **Problem : Rabbit Hole of Solutions**
+
 I often have a hard time when working on a task keeping track of what exactly I'm doing. I can be working on a bug and end up going down a rabbit hole of searching for suboptimal solutions that distract me from the core issue at hand. This hyper focus is beneficial when I’m on the right track so I want a system to maximize the likelihood that I'm on the right track.  I need a system that helps me orient my intentions when solving problems. 
 
 **Solution: Pomodoro Tech**
